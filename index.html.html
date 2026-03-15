@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerFit Gym | Transform Your Life</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* CSS Variables & Reset */
+        :root {
+            --primary: #e60000;
+            --primary-hover: #b30000;
+            --bg-dark: #0a0a0a;
+            --bg-card: #1a1a1a;
+            --text-light: #ffffff;
+            --text-muted: #aaaaaa;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-main);
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Typography & Globals */
+        h1, h2, h3 { text-transform: uppercase; letter-spacing: 1px; }
+        h2 { text-align: center; font-size: 2.5rem; margin-bottom: 3rem; color: var(--primary); }
+        a { text-decoration: none; color: inherit; }
+        section { padding: 5rem 10%; }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary);
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 5px;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover { background: var(--primary-hover); transform: translateY(-3px); }
+        .btn-outline { background: transparent; border: 2px solid var(--primary); }
+        .btn-outline:hover { background: var(--primary); }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 10%;
+            background: rgba(10, 10, 10, 0.9);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        .logo { font-size: 1.8rem; font-weight: 900; color: var(--primary); }
+        .logo span { color: var(--text-light); }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { font-weight: 600; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--primary); }
+
+        /* Hero Section */
+        #home {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop') center/cover;
+            padding-top: 80px;
+        }
+        .hero-content h1 { font-size: 4rem; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .hero-content p { font-size: 1.2rem; margin-bottom: 30px; color: var(--text-muted); }
+        .hero-btns { display: flex; gap: 20px; justify-content: center; }
+
+        /* About Section */
+        #about .about-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 3rem;
+        }
+        .feature-box {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            transition: 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+        .feature-box:hover { border-bottom: 3px solid var(--primary); transform: translateY(-5px); }
+        .feature-box i { font-size: 3rem; color: var(--primary); margin-bottom: 15px; }
+
+        /* Plans Section */
+        #plans { background: #111; }
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .plan-card {
+            background: var(--bg-card);
+            padding: 40px 30px;
+            border-radius: 10px;
+            text-align: center;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .plan-card:hover { transform: scale(1.05); }
+        .plan-card.premium { border: 2px solid var(--primary); }
+        .plan-price { font-size: 2.5rem; color: var(--primary); margin: 20px 0; font-weight: bold; }
+        .plan-features { list-style: none; margin-bottom: 30px; text-align: left; }
+        .plan-features li { margin-bottom: 10px; border-bottom: 1px solid #333; padding-bottom: 5px; }
+        .plan-features li i { color: var(--primary); margin-right: 10px; }
+
+        /* Trainers Section */
+        .trainers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .trainer-card {
+            background: var(--bg-card);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .trainer-img { width: 100%; height: 300px; object-fit: cover; }
+        .trainer-info { padding: 20px; text-align: center; }
+        .trainer-info h3 { color: var(--primary); }
+        .trainer-spec { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px; }
+        .trainer-review { font-style: italic; font-size: 0.9rem; border-top: 1px solid #333; padding-top: 15px; }
+
+        /* Gallery Section */
+        #gallery { background: #111; }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .gallery-grid img { width: 100%; height: 200px; object-fit: cover; border-radius: 5px; transition: 0.3s; }
+        .gallery-grid img:hover { transform: scale(1.03); opacity: 0.8; }
+
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+        .contact-info div { margin-bottom: 20px; display: flex; align-items: center; gap: 15px; }
+        .contact-info i { font-size: 1.5rem; color: var(--primary); }
+        .contact-form { display: flex; flex-direction: column; gap: 15px; }
+        .contact-form input, .contact-form textarea {
+            padding: 15px;
+            background: var(--bg-card);
+            border: 1px solid #333;
+            color: white;
+            border-radius: 5px;
+        }
+        .contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: var(--primary); }
+
+        /* Footer */
+        footer { background: #050505; padding: 20px; text-align: center; color: var(--text-muted); }
+
+        /* Chatbot Styles */
+        #chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        #chat-toggle {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(230,0,0,0.4);
+            transition: 0.3s;
+        }
+        #chat-toggle:hover { transform: scale(1.1); }
+        #chat-box {
+            display: none;
+            width: 320px;
+            height: 450px;
+            background: var(--bg-card);
+            border: 1px solid #333;
+            border-radius: 10px;
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .chat-header {
+            background: var(--primary);
+            padding: 15px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+        }
+        .chat-header span { cursor: pointer; }
+        .chat-body {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .chat-message {
+            max-width: 80%;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
+        .bot-msg { background: #333; align-self: flex-start; border-bottom-left-radius: 0; }
+        .user-msg { background: var(--primary); align-self: flex-end; border-bottom-right-radius: 0; }
+        .chat-input {
+            display: flex;
+            border-top: 1px solid #333;
+        }
+        .chat-input input {
+            flex: 1;
+            padding: 15px;
+            background: transparent;
+            border: none;
+            color: white;
+        }
+        .chat-input input:focus { outline: none; }
+        .chat-input button {
+            background: var(--primary);
+            border: none;
+            color: white;
+            padding: 0 20px;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero-content h1 { font-size: 2.5rem; }
+            .contact-container { grid-template-columns: 1fr; }
+            #chat-box { right: -20px; width: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">POWER<span>FIT</span></div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About Us</a>
+            <a href="#plans">Plans</a>
+            <a href="#trainers">Trainers</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <section id="home">
+        <div class="hero-content">
+            <h1>Transform Your Body,<br>Transform Your Life</h1>
+            <p>Push your limits, achieve your goals, and become the best version of yourself.</p>
+            <div class="hero-btns">
+                <a href="#contact" class="btn">Join Now</a>
+                <a href="#plans" class="btn btn-outline">View Plans</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>About Us</h2>
+        <div class="about-content">
+            <p>Welcome to PowerFit Gym, where your fitness journey begins. We provide a supportive, high-energy environment equipped with everything you need to crush your goals. Whether you're a beginner or a pro, our facility is your second home.</p>
+        </div>
+        <div class="features">
+            <div class="feature-box">
+                <i class="fas fa-dumbbell"></i>
+                <h3>Modern Equipment</h3>
+                <p>Top-of-the-line machines and free weights for ultimate performance.</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-user-tie"></i>
+                <h3>Pro Trainers</h3>
+                <p>Certified experts to guide you safely and effectively.</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-users"></i>
+                <h3>Supportive Vibe</h3>
+                <p>A community that pushes you to be your absolute best.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="plans">
+        <h2>Membership Plans</h2>
+        <div class="plans-grid">
+            <div class="plan-card">
+                <h3>Basic Plan</h3>
+                <div class="plan-price">₹2000 <span>/ mo</span></div>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check"></i> Gym access</li>
+                    <li><i class="fas fa-check"></i> Basic workout guidance</li>
+                    <li><i class="fas fa-check"></i> Locker facility</li>
+                    <li style="color: #555;"><i class="fas fa-times"></i> Diet consultation</li>
+                    <li style="color: #555;"><i class="fas fa-times"></i> Personal trainer</li>
+                </ul>
+                <a href="#contact" class="btn">Select Plan</a>
+            </div>
+            
+            <div class="plan-card">
+                <h3>Standard Plan</h3>
+                <div class="plan-price">₹4000 <span>/ mo</span></div>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check"></i> Gym access</li>
+                    <li><i class="fas fa-check"></i> Personal trainer guidance</li>
+                    <li><i class="fas fa-check"></i> Diet consultation</li>
+                    <li><i class="fas fa-check"></i> Locker facility</li>
+                    <li style="color: #555;"><i class="fas fa-times"></i> Priority support</li>
+                </ul>
+                <a href="#contact" class="btn">Select Plan</a>
+            </div>
+
+            <div class="plan-card premium">
+                <div style="position: absolute; top: 10px; right: -30px; background: var(--primary); color: white; padding: 5px 30px; transform: rotate(45deg); font-size: 0.8rem; font-weight: bold;">POPULAR</div>
+                <h3>Premium Plan</h3>
+                <div class="plan-price">₹6000 <span>/ mo</span></div>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check"></i> Full gym access</li>
+                    <li><i class="fas fa-check"></i> Dedicated personal trainer</li>
+                    <li><i class="fas fa-check"></i> Custom diet plan</li>
+                    <li><i class="fas fa-check"></i> Body transformation program</li>
+                    <li><i class="fas fa-check"></i> Priority support</li>
+                </ul>
+                <a href="#contact" class="btn">Select Plan</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="trainers">
+        <h2>Meet Our Trainers</h2>
+        <div class="trainers-grid">
+            <div class="trainer-card">
+                <img src="https://images.unsplash.com/photo-1567013127542-490d757e51fc?q=80&w=800&auto=format&fit=crop" alt="Rahul Sharma" class="trainer-img">
+                <div class="trainer-info">
+                    <h3>Rahul Sharma</h3>
+                    <p class="trainer-spec">Strength & Weight Training</p>
+                    <p class="trainer-review">"Rahul helped me lose 12kg in 4 months! Highly recommended."</p>
+                </div>
+            </div>
+            <div class="trainer-card">
+                <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=800&auto=format&fit=crop" alt="Neha Kapoor" class="trainer-img">
+                <div class="trainer-info">
+                    <h3>Neha Kapoor</h3>
+                    <p class="trainer-spec">Yoga & Flexibility</p>
+                    <p class="trainer-review">"Her sessions drastically improved my flexibility and posture."</p>
+                </div>
+            </div>
+            <div class="trainer-card">
+                <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=800&auto=format&fit=crop" alt="Arjun Mehta" class="trainer-img">
+                <div class="trainer-info">
+                    <h3>Arjun Mehta</h3>
+                    <p class="trainer-spec">Bodybuilding & Nutrition</p>
+                    <p class="trainer-review">"The best trainer in the city for muscle gain and transformation."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <h2>Gym Gallery</h2>
+        <div class="gallery-grid">
+            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=500&auto=format&fit=crop" alt="Gym Setup">
+            <img src="https://images.unsplash.com/photo-1576678927484-cc907957088c?q=80&w=500&auto=format&fit=crop" alt="Dumbbells">
+            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=500&auto=format&fit=crop" alt="Cardio">
+            <img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=500&auto=format&fit=crop" alt="Heavy Weights">
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact & Join Us</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div><i class="fas fa-map-marker-alt"></i> <p>Palm Avenue, City Center</p></div>
+                <div><i class="fas fa-phone-alt"></i> <p>+91 9876543210</p></div>
+                <div><i class="fas fa-envelope"></i> <p>info@powerfitgym.com</p></div>
+                <div><i class="fas fa-clock"></i> <p>Mon - Sat: 5:00 AM - 11:00 PM<br>Sun: 6:00 AM - 12:00 PM</p></div>
+            </div>
+            <form class="contact-form" onsubmit="event.preventDefault(); alert('Message Sent Successfully!');">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea rows="5" placeholder="Your Message" required></textarea>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 PowerFit Gym. All Rights Reserved.</p>
+    </footer>
+
+    <div id="chat-widget">
+        <div id="chat-box">
+            <div class="chat-header">
+                PowerFit Assistant
+                <span onclick="toggleChat()"><i class="fas fa-times"></i></span>
+            </div>
+            <div class="chat-body" id="chat-body">
+                <div class="chat-message bot-msg">Hi! I'm the PowerFit AI. How can I help you today? Ask me about plans, timings, or trainers!</div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="chat-input-field" placeholder="Type a message..." onkeypress="handleKeyPress(event)">
+                <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+        <div id="chat-toggle" onclick="toggleChat()">
+            <i class="fas fa-comment-dots"></i>
+        </div>
+    </div>
+
+    <script>
+        function toggleChat() {
+            const chatBox = document.getElementById('chat-box');
+            chatBox.style.display = chatBox.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function handleKeyPress(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendMessage() {
+            const inputField = document.getElementById('chat-input-field');
+            const message = inputField.value.trim();
+            if (message === '') return;
+
+            // Add user message to chat
+            addMessage(message, 'user-msg');
+            inputField.value = '';
+
+            // Simulate AI thinking and respond
+            setTimeout(() => {
+                const response = getBotResponse(message.toLowerCase());
+                addMessage(response, 'bot-msg');
+            }, 500);
+        }
+
+        function addMessage(text, className) {
+            const chatBody = document.getElementById('chat-body');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `chat-message ${className}`;
+            msgDiv.innerHTML = text; // allow basic HTML in responses
+            chatBody.appendChild(msgDiv);
+            chatBody.scrollTop = chatBody.scrollHeight; // Auto-scroll to bottom
+        }
+
+        function getBotResponse(input) {
+            if (input.includes('plan') || input.includes('price') || input.includes('cost') || input.includes('membership')) {
+                return "We have 3 plans:<br>1. <b>Basic:</b> ₹2000/mo (Gym, Locker)<br>2. <b>Standard:</b> ₹4000/mo (PT, Diet)<br>3. <b>Premium:</b> ₹6000/mo (Dedicated PT, Priority).<br>Check our Plans section!";
+            } else if (input.includes('time') || input.includes('hour') || input.includes('open')) {
+                return "We are open Monday to Saturday from 5:00 AM to 11:00 PM, and Sundays from 6:00 AM to 12:00 PM.";
+            } else if (input.includes('trainer') || input.includes('coach')) {
+                return "We have expert trainers like Rahul (Strength), Neha (Yoga), and Arjun (Bodybuilding). Visit the Trainers section to see their reviews!";
+            } else if (input.includes('join') || input.includes('register')) {
+                return "To join, you can fill out the contact form at the bottom of the page, or visit us at Palm Avenue. You can also call us at +91 9876543210.";
+            } else if (input.includes('contact') || input.includes('phone') || input.includes('address')) {
+                return "Address: Palm Avenue<br>Phone: +91 9876543210<br>Email: info@powerfitgym.com";
+            } else {
+                return "I'm not sure about that. Try asking about our <b>plans</b>, <b>trainers</b>, <b>timings</b>, or <b>how to join</b>!";
+            }
+        }
+    </script>
+</body>
+</html>
